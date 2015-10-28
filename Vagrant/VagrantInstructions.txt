@@ -1,0 +1,10 @@
+(These instructions may not work for Mac, I don't own one so I can't test it)
+To stand up the virtual machine, you first need to install vagrant (https://www.vagrantup.com/) and virtualBox (https://www.virtualbox.org/wiki/Downloads)
+When that is done, download the Vagrantfile and the bootstrap.sh shell script.
+Navigate to the directory where you saved the files and type "vagrant up" on the command line. This will create an Ubuntu virtual machine and call the bootstrap shell script.
+This script installs the neccessary software to run and create a web app.
+For a better tutorial, read the vagrant documentation (https://docs.vagrantup.com/v2/getting-started/index.html)
+
+To access the VM, type "vagrant ssh" to open an ssh connection to the machine. You may need to install something like Cygwin (https://cygwin.com/index.html)  if you are on Windows.
+Cygwin is an application that provides a Unix-like shell on a Windows system. 
+To shutdown the VM, type "vagrant halt" to completely shutdown or "vagrant suspend" to save the VM's state
