@@ -20,4 +20,7 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password passwor
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password groupz'
 sudo apt-get -y install mysql-server
 
+#install git
+sudo apt-get install -y git
+
 echo "bootstrap.sh complete"
