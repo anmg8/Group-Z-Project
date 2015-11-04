@@ -13,10 +13,18 @@
     <body>
         <p style="font-weight:bold">Enter your login information</p><br>
         <div id= "credentials">
-            Pawprint: <input type="text" name="pawprint">
+        <form method='POST' action="home.php">
+            <label>Pawprint:</label>
+            <input type="text" name="pawprint" required>
             <br>
             <br>
-            Password: <input type="password" name="password">
+            <label>Password:</label>
+            <input type="password" name="password" required>
+        </div>
+            <button type="submit" value="submit">Login</button> 
+        </form>
+        <div>
+            <p>Don't have an account? Click here to <a href="account.php">Create an Account</a></p>
         </div>
     </body>
 </html>
