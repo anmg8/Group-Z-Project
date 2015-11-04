@@ -21,7 +21,7 @@ USE cjc455;
 
 */
 
-CREATE TABLE person(
+CREATE TABLE persons(
   pawprint varchar(10),
   password varchar(20),
   full_name varchar(50),
@@ -31,38 +31,32 @@ CREATE TABLE person(
 
 );
 
-CREATE TABLE faculty (
+CREATE TABLE facultys (
   faculty_pawprint_id varchar(10),
   FOREIGN KEY (faculty_pawprint_id) REFERENCES person (pawprint)
 
 );
-CREATE TABLE administrator (
+CREATE TABLE administrators (
   administrator_pawprint_id varchar(10),
   FOREIGN KEY (administrator_pawprint_id) REFERENCES person (pawprint)
 
 );
-CREATE TABLE department (
+CREATE TABLE departments (
   department_name varchar(20),
   title varchar(20),
   faculty_pawprint_id varchar(10),
   FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty (faculty_pawprint_id)
 );
 
-CREATE TABLE academic_career (
+CREATE TABLE academic_careers (
   faculty_pawprint_id varchar(10),
   career_requested varchar(10),
   FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty (faculty_pawprint_id)
 
 );
 
-CREATE TABLE login (
-  pawprint_id varchar(10),
-  password varchar(20),
-  FOREIGN KEY(pawprint_id) REFERENCES person (pawprint_id)
 
-);
-
-CREATE TABLE ferpa_status (
+CREATE TABLE ferpa_statuses (
   form varchar(20),
   score_percent decimal CHECK(score >= 0 && score <= 100),
   faculty_pawprint_id varchar(10),
@@ -75,7 +69,7 @@ CREATE TABLE ferpa_status (
 --form tables
 */
 
-CREATE TABLE form (
+CREATE TABLE forms (
   faculty_pawprint_id varchar(10),
   form_id int CHECK (FormID >= 0),
   approved boolean,
@@ -85,7 +79,7 @@ CREATE TABLE form (
 
 
 
-CREATE TABLE form_view_update_element (
+CREATE TABLE form_view_update_elements (
   /*
   --Link to the form this is a part of.
   --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
