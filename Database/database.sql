@@ -6,7 +6,8 @@ USE cjc455;
 
 /*
 
---people tables
+//Naming Conventions for CakePHP:
+//http://book.cakephp.org/2.0/en/getting-started/cakephp-conventions.html
 
 
 --I added a person table, since a lot of the information
@@ -21,52 +22,51 @@ USE cjc455;
 */
 
 CREATE TABLE person(
-  PawPrint varchar(10),
-  ID varchar(10),
-  Password varchar(20),
-  Full_Name varchar(50),
-  Campus_Address varchar(50),
-  Campus_Phone varchar(10),
-  PRIMARY KEY(PawPrint)
+  pawprint varchar(10),
+  password varchar(20),
+  full_name varchar(50),
+  campus_address varchar(50),
+  campus_phone varchar(10),
+  PRIMARY KEY(pawprint)
 
 );
 
 CREATE TABLE faculty (
-  Faculty_PawPrint varchar(10),
-  FOREIGN KEY (Faculty_PawPrint) REFERENCES person (PawPrint)
+  faculty_pawprint_id varchar(10),
+  FOREIGN KEY (faculty_pawprint_id) REFERENCES person (pawprint)
 
 );
 CREATE TABLE administrator (
-  Administrator_PawPrint varchar(10),
-  FOREIGN KEY (Administrator_PawPrint) REFERENCES person (PawPrint)
+  administrator_pawprint_id varchar(10),
+  FOREIGN KEY (administrator_pawprint_id) REFERENCES person (pawprint)
 
 );
 CREATE TABLE department (
-  Department_Name varchar(20),
-  Title varchar(20),
-  Faculty_PawPrint varchar(10),
-  FOREIGN KEY(Faculty_PawPrint) REFERENCES faculty (Faculty_PawPrint)
+  department_name varchar(20),
+  title varchar(20),
+  faculty_pawprint_id varchar(10),
+  FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty (faculty_pawprint_id)
 );
 
 CREATE TABLE academic_career (
-  Faculty_PawPrint varchar(10),
-  Career_Requested varchar(10),
-  FOREIGN KEY(Faculty_PawPrint) REFERENCES faculty (Faculty_PawPrint)
+  faculty_pawprint_id varchar(10),
+  career_requested varchar(10),
+  FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty (faculty_pawprint_id)
 
 );
 
 CREATE TABLE login (
-  PawPrint varchar(10),
-  Password varchar(20),
-  FOREIGN KEY(PawPrint) REFERENCES person (PawPrint)
+  pawprint_id varchar(10),
+  password varchar(20),
+  FOREIGN KEY(pawprint_id) REFERENCES person (pawprint_id)
 
 );
 
 CREATE TABLE ferpa_status (
-  Test_ID varchar(20),
-  Score decimal CHECK(Score >= 0 && Score <= 100),
-  Faculty_PawPrint varchar(10),
-  FOREIGN KEY(Faculty_PawPrint) REFERENCES faculty(Faculty_PawPrint)
+  form varchar(20),
+  score_percent decimal CHECK(score >= 0 && score <= 100),
+  faculty_pawprint_id varchar(10),
+  FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty(faculty_pawprint_id)
 
 );
 
@@ -76,11 +76,11 @@ CREATE TABLE ferpa_status (
 */
 
 CREATE TABLE form (
-  Faculty_PawPrint varchar(10),
-  FormID int CHECK (FormID >= 0),
-  Approved boolean,
-  PRIMARY KEY(FormID),
-  FOREIGN KEY(Faculty_PawPrint) REFERENCES faculty(Faculty_PawPrint)
+  faculty_pawprint_id varchar(10),
+  form_id int CHECK (FormID >= 0),
+  approved boolean,
+  PRIMARY KEY(form_id),
+  FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty(faculty_pawprint_id)
 );
 
 
@@ -90,23 +90,23 @@ CREATE TABLE form_view_update_element (
   --Link to the form this is a part of.
   --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
   */
-  FormID int CHECK (FormID >= 0),
+  form_id int CHECK (FormID >= 0),
   /*
   --Used as a primary key, shows up on the form
   */
-  Role varchar (30),
-  View_Checked boolean,
-  Update_Checked boolean,
+  role varchar (30),
+  view_checked boolean,
+  update_checked boolean,
 
-  PRIMARY KEY(Role),
-  FOREIGN KEY(FormID) REFERENCES form (FormID)
+  PRIMARY KEY(role),
+  FOREIGN KEY(form_id) REFERENCES form (form_id)
 
 );
 
 CREATE TABLE admissions (
-  FormID int CHECK (FormID >= 0),
+  form_id int CHECK (form_id >= 0),
   name VARCHAR(10),
 
   PRIMARY KEY(name),
-  FOREIGN KEY(FormID) REFERENCES form(FormID)
+  FOREIGN KEY(form_id) REFERENCES form(form_id)
 );

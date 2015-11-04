@@ -46,7 +46,7 @@
 		else
 		{
 
-		$sql = 'SELECT * FROM login WHERE cjc455.login.PawPrint ="' . $username . '"';
+		$sql = 'SELECT * FROM login WHERE cjc455.login.pawprint ="' . $username . '"';
 		$result = mysql_query($sql, $link);
 
 		if(! $result )
@@ -60,7 +60,7 @@
 				header('Location: error.php');
 			}
 			else {
-				$sql = "INSERT INTO cjc455.login (PawPrint, Password) VALUES ( '" . $username . "','" . $password . "')";
+				$sql = "INSERT INTO cjc455.login (pawprint, password) VALUES ( '" . $username . "','" . $password . "')";
 
 				$result = mysql_query( $sql, $link );
 
