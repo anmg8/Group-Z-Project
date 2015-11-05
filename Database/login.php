@@ -47,7 +47,8 @@
 			if(isset($_POST['submit'])){
 				//Get user data
 				$username = htmlspecialchars($_POST['PawPrint']);
-				pg_prepare($link, "auth_user", "SELECT * FROM cjc455.person WHERE pawprint = $1");
+<<<<<<< HEAD
+				pg_prepare($link, "auth_user", "SELECT * FROM cjc455.person WHERE pawprint = $1 AND password $2");
 				$auth_user_result = pg_execute($link, "auth_user", array($username));
 				$auth_user_result = pg_fetch_array($auth_user_result, NULL, PGSQL_ASSOC);
 				//Save Password
