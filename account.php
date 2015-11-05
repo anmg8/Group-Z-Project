@@ -12,7 +12,7 @@
     <p>Pawprint: <input type="text" name="pawprint"></p>
     <p>Employee ID: <input type="text" name="username"></p>
     <p>Title: <input type="text" name="username"></p>
-    <p>Academic Organization (Department): <select><option value="department">Department</option></select></p>
+    <p>Academic Organization (Department): <select><option value="department">Department</option><option value="Animal Science">Animal Science</option><option value="Computer Science">Computer Science</option><option value="Information Technology">Information Technology</option><option value="Underwater Arts">Underwater Arts</option></select></p>
     <p>Campus Address: <input type="text" name="address"></p>
     <p>Phone Number: <input type="number" name="phone" max="10"></p>
     <p>Password: <input type="password" name="password"></p>
