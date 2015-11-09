@@ -13,6 +13,7 @@ taken from http://stackoverflow.com/questions/8940230/how-can-i-run-a-sql-text-f
 source <filename>;
 source database.sql
 
+Note: The drop.sql file drops all the tables, and the database.sql file creates all the tables.
 
 
 How to connect to database in a php file
