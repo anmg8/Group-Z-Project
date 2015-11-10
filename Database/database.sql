@@ -2,7 +2,7 @@
 /*
 --select the database to use. There is only 1 database we can use.
 */
-USE cjc455;
+USE b7_16806033_testdb;
 
 /*
 
@@ -73,6 +73,15 @@ CREATE TABLE forms (
   faculty_pawprint_id varchar(10),
   form_id int CHECK (FormID >= 0),
   approved boolean,
+  new_request boolean,
+  additional_request boolean,
+  check_if_student_worker boolean,
+  current_staff_member boolean,
+  former_staff_member boolean,
+  staff_member_name varchar(50),
+  staff_member_position varchar(50),
+  staff_member_pawprint varchar(10),
+  staff_member_empl_id varchar(10),
   PRIMARY KEY(form_id),
   FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty(faculty_pawprint_id)
 );
@@ -96,6 +105,8 @@ CREATE TABLE form_view_update_elements (
   FOREIGN KEY(form_id) REFERENCES form (form_id)
 
 );
+
+
 
 CREATE TABLE admissions (
   form_id int CHECK (form_id >= 0),
