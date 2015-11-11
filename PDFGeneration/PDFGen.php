@@ -72,12 +72,14 @@ Need from DB: (lots O' data) (* is required field)
 
 */
 
-$formData = array( 
+$formData = $_POST['formData'];
+
+/* $formData = array( 
 	"Name" => "Adam Newland",
 	"Title" => "Student",
 	"Department" => "Computer Science",
 	"pawprint" => "anmg8"
-);
+); */
 
 // initiate FPDI
 $pdf = new FPDI();
