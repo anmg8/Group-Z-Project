@@ -21,7 +21,7 @@ USE b7_16806033_testdb;
 
 */
 
-CREATE TABLE persons(
+CREATE TABLE person(
   pawprint varchar(10),
   password varchar(20),
   full_name varchar(50),
@@ -31,24 +31,24 @@ CREATE TABLE persons(
 
 );
 
-CREATE TABLE facultys (
+CREATE TABLE faculty (
   faculty_pawprint_id varchar(10),
   FOREIGN KEY (faculty_pawprint_id) REFERENCES person (pawprint)
 
 );
-CREATE TABLE administrators (
+CREATE TABLE administrator (
   administrator_pawprint_id varchar(10),
   FOREIGN KEY (administrator_pawprint_id) REFERENCES person (pawprint)
 
 );
-CREATE TABLE departments (
+CREATE TABLE department (
   department_name varchar(20),
   title varchar(20),
   faculty_pawprint_id varchar(10),
   FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty (faculty_pawprint_id)
 );
 
-CREATE TABLE academic_careers (
+CREATE TABLE academic_career (
   faculty_pawprint_id varchar(10),
   career_requested varchar(10),
   FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty (faculty_pawprint_id)
@@ -56,7 +56,7 @@ CREATE TABLE academic_careers (
 );
 
 
-CREATE TABLE ferpa_statuses (
+CREATE TABLE ferpa_status (
   form varchar(20),
   score_percent decimal CHECK(score >= 0 && score <= 100),
   faculty_pawprint_id varchar(10),
@@ -69,7 +69,7 @@ CREATE TABLE ferpa_statuses (
 --form tables
 */
 
-CREATE TABLE forms (
+CREATE TABLE form (
   faculty_pawprint_id varchar(10),
   form_id int CHECK (FormID >= 0),
   approved boolean,
