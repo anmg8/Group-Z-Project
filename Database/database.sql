@@ -107,6 +107,60 @@ CREATE TABLE form_view_update_elements (
 );
 
 
+CREATE TABLE financial_aid (
+  /*
+  --Link to the form this is a part of.
+  --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
+  */
+  form_id int CHECK (FormID >= 0),
+  /*
+  --Used as a primary key, shows up on the form
+  */
+  role varchar (30),
+  view_checked boolean,
+  update_checked boolean,
+
+  PRIMARY KEY(role),
+  FOREIGN KEY(form_id) REFERENCES form (form_id)
+
+);
+
+CREATE TABLE financials (
+  /*
+  --Link to the form this is a part of.
+  --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
+  */
+  form_id int CHECK (FormID >= 0),
+  /*
+  --Used as a primary key, shows up on the form
+  */
+  role varchar (30),
+  view_checked boolean,
+  update_checked boolean,
+
+  PRIMARY KEY(role),
+  FOREIGN KEY(form_id) REFERENCES form (form_id)
+
+);
+
+CREATE TABLE reserved_access (
+  /*
+  --Link to the form this is a part of.
+  --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
+  */
+  form_id int CHECK (FormID >= 0),
+  /*
+  --Used as a primary key, shows up on the form
+  */
+  role varchar (30),
+  view_checked boolean,
+  update_checked boolean,
+
+  PRIMARY KEY(role),
+  FOREIGN KEY(form_id) REFERENCES form (form_id)
+
+);
+
 
 CREATE TABLE admissions (
   form_id int CHECK (form_id >= 0),
