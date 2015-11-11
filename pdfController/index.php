@@ -53,7 +53,7 @@
     	die('Could not connect: ' . mysql_error()); 
 	}
 	
-	mysql_select_db("test_db");
+	mysql_select_db("github_db");
 	$form = new form();
 	$result = mysql_query("SELECT * FROM person WHERE pawprint = '$pawprint'") or die('Could not query: ' . mysql_error());
 	
@@ -111,20 +111,20 @@
 	
 	$form->setFerpaScore($ferpa);
 
-	$result = mysql_query("SELECT * FROM security WHERE pawprint = '$pawprint'") or die('Could not query: ' . mysql_error());
+	$result = mysql_query("SELECT * FROM form WHERE form_id = '$formId'") or die('Could not query: ' . mysql_error());
 
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$currentStaff = $row["current_staff"];
-		$formerStaff = $row["former_staff"];
-		$name = $row["name"];
-		$position = $row["position"];
-		$pawprint = $row["pawprint"];
-		$empId = $row["emp_id"];
+		$currentStaff = $row["current_staff_member"];
+		$formerStaff = $row["former_staff_member"];
+		$name = $row["staff_member_name"];
+		$position = $row["staff_member_position"];
+		$pawprint = $row["staff_member_pawprint"];
+		$empId = $row["staff_member_emp_id"];
 		
 		$form->setSecurity($currentStaff, $formerStaff, $name, $position, $pawprint, $empId);
 	}
 	
-	$result = mysql_query("SELECT * FROM academic_careers WHERE faculty_pawprint_id = '$pawprint'") or die('Could not query: ' . mysql_error());
+	$result = mysql_query("SELECT * FROM academic_career WHERE faculty_pawprint_id = '$pawprint'") or die('Could not query: ' . mysql_error());
 
 	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$uGrad = $row["u_grad"];
