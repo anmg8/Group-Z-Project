@@ -176,9 +176,14 @@
 		
 		$form->setReservedAccess($role, $view, $update);
 	}
+	?>
 	
-
+	<form method="post" action="../PDFGeneration/PDFGen.php">
+    <input type="hidden" name="formData" value="<? $form ?>">
+    <input type="submit">
+	</form>
 	
+<?php
 	var_dump($form);
 
 	mysql_close($conn);

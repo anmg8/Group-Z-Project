@@ -1,6 +1,7 @@
 <?php
 require_once('FPDF/fpdf.php');
 require_once('FPDI/fpdi.php');
+
 /* TODO:
 Request user data from the database
 Insert data into PDF at appropriate location.
@@ -71,12 +72,14 @@ Need from DB: (lots O' data) (* is required field)
 
 */
 
-$formData = array( 
+$formData = $_POST['formData'];
+
+/* $formData = array( 
 	"Name" => "Adam Newland",
 	"Title" => "Student",
 	"Department" => "Computer Science",
 	"pawprint" => "anmg8"
-);
+); */
 
 // initiate FPDI
 $pdf = new FPDI();
@@ -87,18 +90,20 @@ $pdf->setSourceFile("security-request-form.pdf");
 // import page 1
 $tplIdx = $pdf->importPage(1);
 // use the imported page 
-$pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
+$pdf->useTemplate($tplIdx);
 
 // now write some text to the imported page
 $pdf->SetFont('Helvetica');
 $pdf->SetTextColor(255, 0, 0);
+
+
 
 //write name field
 $pdf->SetXY(55, 53); //coords for Name field
 $pdf->Write(0, $formData["Name"]);
 
 //write title field
-$pdf->SetXY(55, $pdf->GetY() + 13); //hacky way to set position for printout
+$pdf->SetXY(55, $pdf->GetY() + 13); //hacky way to set position for printout, maybe not the best way
 $pdf->Write(0, $formData["Title"]);
 
 //write department field
@@ -113,6 +118,23 @@ $pdf->Write(0, $formData["pawprint"]);
 //write new request check box
 $pdf->SetXY(13, 97);
 $pdf->Write(0, "X");
+
+
+
+//add a new page to the document
+$pdf->AddPage();
+
+$tplIdx = $pdf->importPage(2); //import the new page into the document
+
+$pdf->useTemplate($tplIdx);
+
+
+//add final page
+$pdf->AddPage();
+
+$tplIdx = $pdf->importPage(3);
+
+$pdf->useTemplate($tplIdx);
 
 // Output the new PDF
 $pdf->Output();
