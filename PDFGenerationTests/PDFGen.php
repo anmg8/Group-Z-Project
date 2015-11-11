@@ -71,6 +71,12 @@ Need from DB: (lots O' data) (* is required field)
 
 */
 
+$formData = array( 
+	"Name" => "Adam Newland",
+	"Title" => "Student",
+	"Department" => "Computer Science",
+	"pawprint" => "anmg8"
+);
 
 // initiate FPDI
 $pdf = new FPDI();
@@ -83,17 +89,33 @@ $tplIdx = $pdf->importPage(1);
 // use the imported page 
 $pdf->useTemplate($tplIdx, 0, 0, 0, 0, true);
 
-// now write some text above the imported page
+// now write some text to the imported page
 $pdf->SetFont('Helvetica');
 $pdf->SetTextColor(255, 0, 0);
-$pdf->SetXY(55, 53); //coords for Name field
-$pdf->Write(0, 'Test');
 
-$pdf->SetXY($pdf->GetX() - 10, $pdf->GetY() + 10); //hacky way to set position for printout
-$pdf->Write(0, 'Second Test');
+//write name field
+$pdf->SetXY(55, 53); //coords for Name field
+$pdf->Write(0, $formData["Name"]);
+
+//write title field
+$pdf->SetXY(55, $pdf->GetY() + 13); //hacky way to set position for printout
+$pdf->Write(0, $formData["Title"]);
+
+//write department field
+$pdf->SetXY(55, $pdf->GetY() + 12);
+$pdf->Write(0, $formData["Department"]);
+
+//write pawprint field
+$pdf->SetXY(157, 51);
+$pdf->Write(0, $formData["pawprint"]);
+
+
+//write new request check box
+$pdf->SetXY(13, 97);
+$pdf->Write(0, "X");
 
 // Output the new PDF
 $pdf->Output();
 
-echo"PDF Generated\n";
+
 ?>

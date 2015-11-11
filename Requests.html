@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Request Options</title>
+        <style>
+        #info {
+            float: right;
+            border:1px solid #d4d4d4;
+        }
+        
+        </style>
+    </head>
+        <body>
+            <form id="requestform">
+            <p> Is this a new request, or are you requesting additional access?</p>
+                <input type="radio" name="request" value="new">New Request
+                <input type="radio" name="request" value="additional"> Additional Request
+            <br>
+            <p>Are you a student worker?</p>
+                <input type="radio" name="student" value="yes">Yes
+                <input type="radio" name="student" value="no">No
+            <br>
+             <p>Do you wish to copy security of a current/former staff member? If so, please provide their information.</p>
+                <div id="info" >
+                 Name:<input type="text" name="name"><br>
+                Position:<input type="text" name="position"><br>
+                Pawprint/SSO:<input type="text" name="pawprint"><br>
+                Employee ID (if available):<input type="text" name="id">
+            </div>
+            <div>
+                <input type="radio" name="member" value="no">No<br>
+                <input type="radio" name="member" value="current">Current staff member<br>
+                <input type="radio" name="member" value="former">Former staff member<br>
+            <br>
+            </div>
+            <p>Select the academic career(s). Select all that apply.</p>
+                <input type="checkbox" name="career" value="undergrad">Undergrad
+                <input type="checkbox" name="career" value="graduate">Graduate
+                <input type="checkbox" name="career" value="medicine">Medicine<br>
+                <input type="checkbox" name="career" value="veterinary">Veterinary Medicine
+                <input type="checkbox" name="career" value="law">Law
+            <br>
+            <p>Please describe the ype of access needed (i.e. view student name, address, rosters, etc.). Please be specific.</p>
+                <textarea name="access" rows="6" cols="60"></textarea>  
+            <br>
+            <button type="submit" value="continue">Continue</button>
+            <button type="reset" value="reset">Reset</button>
+            <button type="button" value="cancel">Cancel</button>
+        </form>
+       
+    </body>    
+</html>
