@@ -44,16 +44,16 @@
 	require 'FinancialAid.php';
 	require 'Reserved.php';
 	
-	$conn = mysql_connect('localhost', 'root', 'root') or die('Could not connect: ' . mysql_error());
-	$pawprint = "acbgf8";
+	$conn = mysql_connect('sql311.byethost7.com', 'b7_16806033', 'GoTeamZ') or die('Could not connect: ' . mysql_error());
+	$pawprint = "anmg8";
 	
 	
 	
 	if (!$conn) {
-    	die('Could not connect: ' . mysql_error()); 
+    	die('Could not connect: ' . mysql_error());  
 	}
 	
-	mysql_select_db("github_db");
+	mysql_select_db("b7_16806033_testdb", $conn);
 	$form = new form();
 	$result = mysql_query("SELECT * FROM person WHERE pawprint = '$pawprint'") or die('Could not query: ' . mysql_error());
 	
@@ -176,15 +176,46 @@
 		
 		$form->setReservedAccess($role, $view, $update);
 	}
+	mysql_close($conn);
+	
+	$finalForm = packData($form);
+	var_dump($finalForm);
+	
+	
+	function packData( $formObj )
+	{
+		$packedForm = array(
+		"formID" => $formObj->getFormId(),
+		"fullName" => $formObj->getFullName(),
+		"Title" => $formObj->getTitle(),
+		"Department" => $formObj->getDepartment(),
+		"Pawprint" => $formObj->getPawprint(),
+		"EmpID" => $formObj->getEmpId(),
+		"Address" => $formObj->getAddress(),
+		"Phone" => $formObj->getPhone(),
+		"isNew" => $formObj->getIsNew(),
+		"isAdd" => $formObj->getIsAdditional(),
+		"stuWork" => $formObj->getIsStudentWorker(),
+		"ferpa" => $formObj->getFerpaScore(),
+		"accDesc" => $formObj->getAccessDescription(),
+		"security" => $formObj->getSecurity(),
+		"acadCareer" => $formObj->getAcedemicCareer(),
+		"stuRecAccess" => $formObj->getStudentRecordsAccess(),
+		"stuFin" => $formObj->getStudentFinancials(),
+		"stuFinAid" => $formObj->getStudentFinancialAid(),
+		"resAccess" => $formObj->getReservedAccess(),
+		"adminAccess" => $formObj->getAdmissionAccess()
+		);
+		return $packedForm;
+	}
 	?>
 	
-	<form method="post" action="../PDFGeneration/PDFGen.php">
-    <input type="hidden" name="formData" value="<? $form ?>">
+	<form method="post" action="../PDFGeneration/PDFGen.php" id="subForm">
+    <input type="hidden" name="formData" value="<?php json_encode($finalForm) ?>">
     <input type="submit">
 	</form>
 	
-<?php
-	var_dump($form);
+	<!-- <script type="text/javascript"> //javascript to automatically submit form data to POST
+    document.getElementById('subForm').submit(); // SUBMIT FORM
+	</script> -->
 
-	mysql_close($conn);
-?>

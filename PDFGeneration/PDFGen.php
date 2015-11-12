@@ -72,7 +72,8 @@ Need from DB: (lots O' data) (* is required field)
 
 */
 
-$formData = $_POST['formData'];
+$formData = json_decode($_POST['formData']);
+//var_dump($formData);
 
 /* $formData = array( 
 	"Name" => "Adam Newland",
@@ -95,7 +96,6 @@ $pdf->useTemplate($tplIdx);
 // now write some text to the imported page
 $pdf->SetFont('Helvetica');
 $pdf->SetTextColor(255, 0, 0);
-
 
 
 //write name field
