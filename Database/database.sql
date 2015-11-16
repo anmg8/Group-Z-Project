@@ -2,7 +2,7 @@
 /*
 --select the database to use. There is only 1 database we can use.
 */
-USE cjc455;
+USE b7_16806033_testdb;
 
 /*
 
@@ -55,12 +55,6 @@ CREATE TABLE academic_career (
 
 );
 
-CREATE TABLE login (
-  pawprint_id varchar(10),
-  password varchar(20),
-  FOREIGN KEY(pawprint_id) REFERENCES person (pawprint_id)
-
-);
 
 CREATE TABLE ferpa_status (
   form varchar(20),
@@ -79,13 +73,22 @@ CREATE TABLE form (
   faculty_pawprint_id varchar(10),
   form_id int CHECK (FormID >= 0),
   approved boolean,
+  new_request boolean,
+  additional_request boolean,
+  check_if_student_worker boolean,
+  current_staff_member boolean,
+  former_staff_member boolean,
+  staff_member_name varchar(50),
+  staff_member_position varchar(50),
+  staff_member_pawprint varchar(10),
+  staff_member_empl_id varchar(10),
   PRIMARY KEY(form_id),
   FOREIGN KEY(faculty_pawprint_id) REFERENCES faculty(faculty_pawprint_id)
 );
 
 
 
-CREATE TABLE form_view_update_element (
+CREATE TABLE form_view_update_elements (
   /*
   --Link to the form this is a part of.
   --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
@@ -102,6 +105,62 @@ CREATE TABLE form_view_update_element (
   FOREIGN KEY(form_id) REFERENCES form (form_id)
 
 );
+
+
+CREATE TABLE financial_aid (
+  /*
+  --Link to the form this is a part of.
+  --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
+  */
+  form_id int CHECK (FormID >= 0),
+  /*
+  --Used as a primary key, shows up on the form
+  */
+  role varchar (30),
+  view_checked boolean,
+  update_checked boolean,
+
+  PRIMARY KEY(role),
+  FOREIGN KEY(form_id) REFERENCES form (form_id)
+
+);
+
+CREATE TABLE financials (
+  /*
+  --Link to the form this is a part of.
+  --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
+  */
+  form_id int CHECK (FormID >= 0),
+  /*
+  --Used as a primary key, shows up on the form
+  */
+  role varchar (30),
+  view_checked boolean,
+  update_checked boolean,
+
+  PRIMARY KEY(role),
+  FOREIGN KEY(form_id) REFERENCES form (form_id)
+
+);
+
+CREATE TABLE reserved_access (
+  /*
+  --Link to the form this is a part of.
+  --Doesn't need pawprint too. Ther is a unique FormID for each form. (from the PRIMARY KEY line)
+  */
+  form_id int CHECK (FormID >= 0),
+  /*
+  --Used as a primary key, shows up on the form
+  */
+  role varchar (30),
+  view_checked boolean,
+  update_checked boolean,
+
+  PRIMARY KEY(role),
+  FOREIGN KEY(form_id) REFERENCES form (form_id)
+
+);
+
 
 CREATE TABLE admissions (
   form_id int CHECK (form_id >= 0),
