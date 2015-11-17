@@ -23,7 +23,8 @@ USE b7_16806033_testdb;
 
 CREATE TABLE person(
   pawprint varchar(10),
-  password varchar(20),
+  pwhash varchar(100),
+  salt varchar(100),
   full_name varchar(50),
   campus_address varchar(50),
   campus_phone varchar(10),
