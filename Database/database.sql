@@ -74,7 +74,6 @@ CREATE TABLE form (
   form_id int CHECK (FormID >= 0),
   approved boolean,
   new_request boolean,
-  additional_request boolean,
   check_if_student_worker boolean,
   current_staff_member boolean,
   former_staff_member boolean,
