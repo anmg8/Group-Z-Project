@@ -194,7 +194,6 @@
 		"Address" => $formObj->getAddress(),
 		"Phone" => $formObj->getPhone(),
 		"isNew" => $formObj->getIsNew(),
-		"isAdd" => $formObj->getIsAdditional(),
 		"stuWork" => $formObj->getIsStudentWorker(),
 		"ferpa" => $formObj->getFerpaScore(),
 		"accDesc" => $formObj->getAccessDescription(),
