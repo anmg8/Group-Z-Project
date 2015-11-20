@@ -22,7 +22,7 @@
         </style>
     </head>
         <body>
-              <form action="requests.php" method="post">
+              <form action="http://teamz.byethost7.com/CodeIgniter/CodeIgniter-3.0.3/index.php/pages/view/requests" method="post">
             <br>
             <p class="letters">  Is this a new request, or are you requesting additional access?</p>
                 <input type="radio" name="request" value="new"> New Request
@@ -58,81 +58,96 @@
                 <input type="checkbox" name="career" value="law"> Law
             <br>
             <br>
-            <p class="letters">  Please describe the ype of access needed (i.e. view student name, address, rosters, etc.). Please be specific.</p>
+            <p class="letters">  Please describe the type of access needed (i.e. view student name, address, rosters, etc.). Please be specific.</p>
                 <textarea name="access" rows="6" cols="60"></textarea>  
             <br>
             <br>
-            <button type="submit" value="continue"> Continue </button>
-            <button type="reset" value="reset"> Reset </button>
-            <button type="button" value="cancel"> Cancel </button>
+            <input type="submit" name="submit" value="continue"> 
+            <input type="reset" value="Start Over"> 
+            <!--<input type="button" value="Cancel"> -->
         </form>
         
         <?php
 	
 		$host = "sql311.byethost7.com";
-		$user = "b7_16806033";
-		$pass = "GoTeamZ";
+	$user = "b7_16806033";
+	$pass = "GoTeamZ";
 	
-		$link = mysql_connect($host, $user, $pass);
+	$link = mysql_connect($host, $user, $pass);
 	
-		if (!$link) {
+	if (!$link) {
 			$_SESSION['error'] =  'Could not connect: ' . mysql_error();
 			header('Location: error.php');
-		}
+	}
 	
-		if(! mysql_select_db( "b7_16806033_testdb", $link )) {
-			$_SESSION['error'] = " Could not switch to database.";
-			header('Location: error.php');
-		}
+	if(! mysql_select_db( "b7_16806033_testdb", $link )) {
+		$_SESSION['error'] = " Could not switch to database.";
+		header('Location: error.php');
+	}
 	
 	
-		$error = "http://teamz.byethost7.com/CodeIgniter/CodeIgniter-3.0.3/index.php/pages/view/login";
-		$success = "http://teamz.byethost7.com/CodeIgniter/CodeIgniter-3.0.3/index.php/pages/view/home";
-		
+	
+	
+	
+	$error = "http://teamz.byethost7.com/CodeIgniter/CodeIgniter-3.0.3/index.php/pages/view/create2";
+	$success = "http://teamz.byethost7.com/CodeIgniter/CodeIgniter-3.0.3/index.php/pages/view/home";
+	
+    //session_start();
 		//Verify data once submitted and insert into database
-		if(isset($_POST['submit'])){
+		if(isset($_POST['submit']))
+		{
 			
 			$request = htmlspecialchars($_POST['request']);
-			if($request == '') {
-				echo "<a href='request.php'>Return to request.</a><br>";	
+			if($request == '') 
+			{
+				echo "<a href='requests.php'>Return to request.</a><br>";	
 				exit("Error: Field cannot be blank<br>");
 			}
 			
 			$student = htmlspecialchars($_POST['student']);
-			if($student == '') {
-				echo "<a href='request.php'>Return to request.</a><br>";	
+			if($student == '') 
+			{
+				echo "<a href='requests.php'>Return to request.</a><br>";	
 				exit("Error: Field cannot be blank<br>");
 			}
 			
 			$member = htmlspecialchars($_POST['member']);
-			if($NewRequest == '') {
-				echo "<a href='request.php'>Return to request.</a><br>";	
+			if($member == '') 
+			{
+				echo "<a href='requests.php'>Return to request.</a><br>";	
 				exit("Error: Field cannot be blank<br>");
 			}
 			
 			$career = htmlspecialchars($_POST['career']);
-			if($career == '') {
-				echo "<a href='request.php'>Return to request.</a><br>";	
+			if($career == '') 
+			{
+				echo "<a href='requests.php'>Return to request.</a><br>";	
 				exit("Error: Field cannot be blank<br>");
 			}
 			
 			$access = htmlspecialchars($_POST['access']);
-			if($NewRequest == '') {
-				echo "<a href='request.php'>Return to request.</a><br>";	
+			if($access == '') 
+			{
+				echo "<a href='requests.php'>Return to request.</a><br>";	
 				exit("Error: Field cannot be blank<br>");
 			}
 			
 			$RequestInfo = "INSERT INTO forms(request,student,member,career,access) VALUES ($1,$2,$3,$4,$5)";
-			$result = pg_prepare($conn, "forms", $RequestInfo);
+			$result = pg_prepare($link, "forms", $RequestInfo);
+			$result = pg_execute($link, "forms", $RequestInfo);
 			
-			$result = pg_execute($conn, "forms", $RequestInfo);
+			//$result = pg_execute($link, "forms", $RequestInfo);
 			if(!$result)
-   			{
-   				echo pg_last_error();
-   				exit(1);
-   			}
-		}		
-				
+			{
+				$_SESSION['error'] = 'Could not enter data: ' . mysql_error();
+				header('Location: ' . $error);
+			}
+		}
+		
+		if(!mysql_close($link)) {
+			$_SESSION['error'] = "could not close connection to database";
+			header('Location: error.php');
+		}				
 		
 		?>      
     
