@@ -44,8 +44,11 @@
 	require 'FinancialAid.php';
 	require 'Reserved.php';
 	
+	//TODO: add separate private file to handle DB connection for more security
 	$conn = mysql_connect('sql311.byethost7.com', 'b7_16806033', 'GoTeamZ') or die('Could not connect: ' . mysql_error());
-	$pawprint = "anmg8";
+	
+
+	$pawprint = "anmg8"; //for testing only. need to remove and replace with data coming from previous PHP pages
 	
 	
 	
@@ -64,7 +67,7 @@
 		$phone = $row["campus_phone"];
 	}
 	
-	$form->setEmpId($pawprint);
+	$form->setEmpId($pawprint); //TODO: should be a separate field for EMPID
 	$form->setFullName($fullName);
 	$form->setPawprint($pawprint);
 	$form->setAddress($address);
@@ -177,41 +180,45 @@
 		$form->setReservedAccess($role, $view, $update);
 	}
 	mysql_close($conn);
-	
-	$finalForm = packData($form);
-	var_dump($finalForm);
-	
-	
+
+	session_start();
+	$_SESSION['formData'] = $form;
+
+
+	//future idea. look into redirecting URI after class is loaded into Session to avoid having html form and JS
+
+	/*$finalForm = packData($form);
+
 	function packData( $formObj )
 	{
 		$packedForm = array(
-		"formID" => $formObj->getFormId(),
-		"fullName" => $formObj->getFullName(),
-		"Title" => $formObj->getTitle(),
-		"Department" => $formObj->getDepartment(),
-		"Pawprint" => $formObj->getPawprint(),
-		"EmpID" => $formObj->getEmpId(),
-		"Address" => $formObj->getAddress(),
-		"Phone" => $formObj->getPhone(),
-		"isNew" => $formObj->getIsNew(),
-		"isAdd" => $formObj->getIsAdditional(),
-		"stuWork" => $formObj->getIsStudentWorker(),
-		"ferpa" => $formObj->getFerpaScore(),
-		"accDesc" => $formObj->getAccessDescription(),
-		"security" => $formObj->getSecurity(),
-		"acadCareer" => $formObj->getAcedemicCareer(),
-		"stuRecAccess" => $formObj->getStudentRecordsAccess(),
-		"stuFin" => $formObj->getStudentFinancials(),
-		"stuFinAid" => $formObj->getStudentFinancialAid(),
-		"resAccess" => $formObj->getReservedAccess(),
-		"adminAccess" => $formObj->getAdmissionAccess()
+		'formID' => $formObj->getFormId(),
+		'fullName' => $formObj->getFullName(),
+		'Title' => $formObj->getTitle(),
+		'Department' => $formObj->getDepartment(),
+		'Pawprint' => $formObj->getPawprint(),
+		'EmpID' => $formObj->getEmpId(),
+		'Address' => $formObj->getAddress(),
+		'Phone' => $formObj->getPhone(),
+		'isNew' => $formObj->getIsNew(),
+		'isAdd' => $formObj->getIsAdditional(),
+		'stuWork' => $formObj->getIsStudentWorker(),
+		'ferpa' => $formObj->getFerpaScore(),
+		'accDesc' => $formObj->getAccessDescription(),
+		'security' => $formObj->getSecurity(),
+		'acadCareer' => $formObj->getAcedemicCareer(),
+		'stuRecAccess' => $formObj->getStudentRecordsAccess(),
+		'stuFin' => $formObj->getStudentFinancials(),
+		'stuFinAid' => $formObj->getStudentFinancialAid(),
+		'resAccess' => $formObj->getReservedAccess(),
+		'adminAccess' => $formObj->getAdmissionAccess()
 		);
 		return $packedForm;
-	}
+	}*/
 	?>
 	
 	<form method="post" action="../PDFGeneration/PDFGen.php" id="subForm">
-    <input type="hidden" name="formData" value="<?php json_encode($finalForm) ?>">
+    <input type="hidden" name="formData" value="<?php $form ?>"/>
     <input type="submit">
 	</form>
 	
