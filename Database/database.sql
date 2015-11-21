@@ -23,7 +23,8 @@ USE b7_16806033_testdb;
 
 CREATE TABLE person(
   pawprint varchar(10),
-  password varchar(20),
+  pwhash varchar(100),
+  salt varchar(100),
   full_name varchar(50),
   campus_address varchar(50),
   campus_phone varchar(10),
@@ -74,7 +75,6 @@ CREATE TABLE form (
   form_id int CHECK (FormID >= 0),
   approved boolean,
   new_request boolean,
-  additional_request boolean,
   check_if_student_worker boolean,
   current_staff_member boolean,
   former_staff_member boolean,
