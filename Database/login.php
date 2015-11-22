@@ -35,35 +35,37 @@
 
 	if(isset($_POST['submit'])) {
 
-		$username = $_POST['PawPrint'];
-		$password = $_POST['Password'];
+        $u = htmlspecialchars($_POST['PawPrint']);
+        $p = htmlspecialchars($_POST['Password']);
 
-		if($username == '' || $password == '') {
-			$_SESSION['error'] = 'Invalid input';
-			header('Location: error.php');
-		}
-		else
-		{
-			if(isset($_POST['submit'])){
-				//Get user data
-				$username = htmlspecialchars($_POST['PawPrint']);
-<<<<<<< HEAD
-				pg_prepare($link, "auth_user", "SELECT * FROM cjc455.person WHERE pawprint = $1 AND password $2");
-				$auth_user_result = pg_execute($link, "auth_user", array($username));
-				$auth_user_result = pg_fetch_array($auth_user_result, NULL, PGSQL_ASSOC);
-				//Save Password
-				$usr_pass_hash = sha1($auth_user_result['salt'] . htmlspecialchars($_POST['Password']));
-					
-				if ($usr_pass_hash == $auth_user_result['']){
-					$_SESSION['pawprint'] = $username;
-					$_SESSION[''] = $auth_user_result[''];
-					
-					header("Location: home.php");
-				}
-				else{
-					echo "<span style='color: red;'>Bad username/password combination</span>";
-				}
-			}
-		}
-	}
+        if($username == '' || $password == '') {
+            $_SESSION['error'] = 'Invalid input';
+            header('Location: error.php');
+        }
+        else
+        {
+            //Get user data
+            $query = 'SELECT * FROM cjc455.person WHERE pawprint = $1';
+            $assign = pg_prepare($link, "auth_user", $query);
+            $result = pg_execute($link, "auth_user", array($u));
+
+            $line = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+            $salt = $line['salt'];
+            $dbpass = $line['pwhash'];
+
+            //Save Password
+            $usr_pass_hash = sha1($salt . $p);
+
+            if($usr_pass_hash == $dbpass){
+                $_SESSION['username'] = $u;
+
+                header("Location: home.php");
+            }
+            else{
+                echo "<span style='color: red;'>Bad username/password combination</span>";
+            }
+        }
+    }
 ?>
+</body>
+</html>
