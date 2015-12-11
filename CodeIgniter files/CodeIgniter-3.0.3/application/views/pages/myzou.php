@@ -303,16 +303,21 @@
 				        echo "<a href='myzou.php'>Return to MyZou.</a><br>";	
 				        exit("Error: Field cannot be blank<br>");
             }
-            $InputInfo = "INSERT INTO forms(bio,add,schedule,service,associated,class,enrollment,demographic,permission,numbers,course,report,edit,stats,profile,test,financials,cost,aid,immunizations,transfer,relationships,groups,health,support,standing) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26)";
-			$result = pg_prepare($link, "forms", $InputInfo);
+                    $RequestInfo = "INSERT INTO forms(bio,add,schedule,service,associated,class,enrollment,demographic,permission,numbers,course,report,edit,stats,profile,test,financials,cost,aid,immunizations,transfer,relationships,groups,health,support,standing) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26)";
+			$result = pg_prepare($link, "forms", $RequestInfo);
 			
-			$result = pg_execute($link, "forms", $InputInfo);
+			$result = pg_execute($link, "forms", $RequestInfo);
 			if(!$result)
    			{
-   				echo pg_last_error();
-   				exit(1);
+   				$_SESSION['error'] = 'Could not enter data: ' . mysql_error();
+                header('Location: ' . $error);
    			}
                 }
+            if(!mysql_close($link)) {
+                $_SESSION['error'] = "Could not close connection to database";
+                header('Location: error.php');
+            }
+            
             ?>
              <!-- Latest compiled and minified JavaScript -->
 	   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
