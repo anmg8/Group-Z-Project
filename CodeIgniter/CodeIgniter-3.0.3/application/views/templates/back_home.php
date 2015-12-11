@@ -1,0 +1,1 @@
+ <p><a href="http://teamz.byethost7.com/CodeIgniter/CodeIgniter-3.0.3/index.php/pages/view/home">Back Home</a></p> 
