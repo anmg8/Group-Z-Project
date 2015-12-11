@@ -97,16 +97,19 @@ if( $formData->getIsStudentWorker() )
 $security = $formData->getSecurity(); //returns an array with one element
 $security = $security[0]; //takes the only element of the array ( a Security Object ) and sets it to $security
 
-//write current staff check box 
-if( $security->getCurrentStaff() ) 
-	{  
-	$pdf->SetXY(98.5, 101.5);
-	$pdf->Write(0, "X");
-	}
-else //write former staff check box
+if( $security->getName() )
 	{
-	$pdf->SetXY(156, 101.5);
-	$pdf->Write(0, "X");
+	//write current staff check box 
+	if( $security->getCurrentStaff() ) 
+		{  
+		$pdf->SetXY(98.5, 101.5);
+		$pdf->Write(0, "X");
+		}
+	else //write former staff check box
+		{
+		$pdf->SetXY(156, 101.5);
+		$pdf->Write(0, "X");
+		}
 	}
 
 //write former staff name

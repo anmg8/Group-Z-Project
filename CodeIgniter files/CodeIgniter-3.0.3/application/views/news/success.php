@@ -1,1 +1,0 @@
-Created news item successfully.
